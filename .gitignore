@@ -1,0 +1,8 @@
+# O dataset oficial (~3M vetores) — baixe do repo da Rinha, não versione.
+resources/references.json.gz
+
+# Artefatos gerados pelo preprocess (gerados no build da imagem).
+index.faiss
+labels.npy
+__pycache__/
+*.pyc

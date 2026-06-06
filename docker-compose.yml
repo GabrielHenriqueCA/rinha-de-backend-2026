@@ -1,0 +1,49 @@
+# Total: 1.0 CPU / 350 MB (limite da Rinha 2026).
+x-api: &api
+  image: ${IMAGE:-rinha2026-fraud:latest}
+  build: .
+  environment:
+    NPROBE: "4"
+  volumes:
+    - sockets:/sockets
+  networks: [app]
+  deploy:
+    resources:
+      limits:
+        cpus: "0.45"
+        memory: "163MB"
+
+services:
+  api1:
+    <<: *api
+    environment:
+      NPROBE: "4"
+      API_SOCKET: "/sockets/api1.sock"
+
+  api2:
+    <<: *api
+    environment:
+      NPROBE: "4"
+      API_SOCKET: "/sockets/api2.sock"
+
+  haproxy:
+    image: haproxy:3.0-alpine
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - sockets:/sockets
+    ports:
+      - "9999:9999"
+    depends_on: [api1, api2]
+    networks: [app]
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "24MB"
+
+volumes:
+  sockets:
+
+networks:
+  app:
+    driver: bridge
