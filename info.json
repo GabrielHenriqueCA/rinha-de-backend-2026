@@ -1,0 +1,10 @@
+{
+  "name": "Gabriel Henrique",
+  "social": ["https://x.com/GabriellHCA", "https://github.com/GabriellHCA"],
+  "source-code-repo": "https://github.com/GabrielHenriqueCA/rinha-de-backend-2026-app",
+  "langs": ["python"],
+  "storages": [],
+  "messaging": [],
+  "load-balancers": ["haproxy"],
+  "other-technologies": ["faiss", "granian", "msgspec"]
+}
